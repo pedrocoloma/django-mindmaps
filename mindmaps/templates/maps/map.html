@@ -4,8 +4,10 @@
 {% endblock %}
 
 {% block body %}
+<main>
     <h1>Map id {{ map.id }}</h1>
     {{ map.title}}
 
     <a href="{% url 'index' %}">Go back</a>
+  </main>
 {% endblock %}
