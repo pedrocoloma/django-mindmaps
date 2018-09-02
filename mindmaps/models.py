@@ -26,6 +26,10 @@ class Map(models.Model):
     # views
     # number of shares
 
+class UsersMaps(models.Model):
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    maps = models.ManyToManyField(Map, blank=True, related_name="maps")
+
 """
 Map
     id, title, public, author, timestamp, public_id, friemdly_url, language, keywords
