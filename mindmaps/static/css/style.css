@@ -16126,8 +16126,8 @@ textarea[resize='horizontal']
 
 .navbar-transparent
 {
-    position: absolute;
-    z-index: 100;
+    /* position: absolute;
+    z-index: 100; */
     top: 0;
 
     width: 100%;
@@ -18523,4 +18523,7 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle
 }
 .no-bottom {
     padding-bottom: 0;
+}
+.navbar-transparent {
+    position: unset;
 }

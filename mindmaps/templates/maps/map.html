@@ -6,8 +6,9 @@
 {% block body %}
 <main>
     <h1>Map id {{ map.id }}</h1>
-    {{ map.title}}
-
-    <a href="{% url 'index' %}">Go back</a>
+    {{ map.title }}<br>
+    Criado por {{ map.author.name }}
+    <br>
+    <a href="{% url 'index' %}">Voltar</a>
   </main>
 {% endblock %}

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404
 
 from .models import Map
@@ -6,7 +6,7 @@ from .models import Map
 # Create your views here.
 def index(request):
     context = {
-        "maps": Map.objects.all()
+        "maps": Map.objects.all(),
     }
     return render(request, "maps/index.html", context)
 
