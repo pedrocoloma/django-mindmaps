@@ -84,6 +84,18 @@
         </div>
         <div class="col-md-6">
           <ul class="nav nav-footer justify-content-end">
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+              <a href="{% url 'logout'%}">Sair</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+              <a href="{% url 'signup'%}">Registrar</a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'login'%}">Login</a>
+            </li>
+            {% endif %}
             <li class="nav-item">
               <a href="" class="nav-link" target="_blank">Sobre</a>
             </li>
@@ -122,14 +134,14 @@
                       <div class="text-center text-muted mb-4">
                           <small>Ou entre usando email e senha</small>
                       </div>
-                      <form role="form" method="post" action="/login">
+                      <form role="form" method="post" action="/u/login/">
                         {% csrf_token %}
                           <div class="form-group mb-3">
                               <div class="input-group input-group-alternative">
                                   <div class="input-group-prepend">
                                       <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                                   </div>
-                                  <input class="form-control" placeholder="Email" type="text">
+                                  <input class="form-control" placeholder="Email" type="text" name="username" autofocus required id="id_username">
                               </div>
                           </div>
                           <div class="form-group">
@@ -137,14 +149,13 @@
                                   <div class="input-group-prepend">
                                       <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                                   </div>
-                                  <input class="form-control" placeholder="Senha" type="password" name="password">
+                                  <input class="form-control" placeholder="Senha" type="password" name="password" name="password" required id="id_password">
                               </div>
                           </div>
                           <div class="text-center">
                               <input type="submit" class="btn btn-primary my-4" value="Entrar"/>
                           </div>
                           <div class="text-center"><a href="">Esqueci minha senha</a></div>
-
                       </form>
                   </div>
               </div>
@@ -177,21 +188,30 @@
                       <div class="text-center text-muted mb-4">
                           <small>Ou crie uma conta usando seu email</small>
                       </div>
-                      <form role="form">
+                      <form role="form" action="/u/signup/" method="post">
+                        {% csrf_token %}
                           <div class="form-group">
                             <div class="input-group input-group-alternative mb-3">
                               <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
                               </div>
-                              <input class="form-control" placeholder="Nome" type="text">
+                              <input class="form-control" placeholder="Usuário" type="text" name="username" maxlength="150" autofocus required id="id_username">
                             </div>
                           </div>
-                          <div class="form-group mb-3">
+                          <!-- <div class="form-group mb-3">
                               <div class="input-group input-group-alternative">
                                   <div class="input-group-prepend">
                                       <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                                   </div>
-                                  <input class="form-control" placeholder="Email" type="email">
+                                  <input class="form-control" placeholder="Email" type="email" name="email" maxlength="128" required id="id_email">
+                              </div>
+                          </div> -->
+                          <div class="form-group">
+                              <div class="input-group input-group-alternative">
+                                  <div class="input-group-prepend">
+                                      <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                                  </div>
+                                  <input class="form-control" placeholder="Senha" type="password" name="password1" required id="id_password1">
                               </div>
                           </div>
                           <div class="form-group">
@@ -199,13 +219,12 @@
                                   <div class="input-group-prepend">
                                       <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                                   </div>
-                                  <input class="form-control" placeholder="Senha" type="password">
+                                  <input class="form-control" placeholder="Senha" type="password" name="password2" required id="id_password2">
                               </div>
                           </div>
                           <div class="text-center">
-                              <button type="button" class="btn btn-primary my-4">Criar conta</button>
+                              <input type="submit" class="btn btn-primary my-4" value="Criar conta"/>
                           </div>
-                          {{ registrationForm}}
                       </form>
                   </div>
               </div>

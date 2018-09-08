@@ -1,0 +1,16 @@
+{% extends "maps/base.html" %}
+{% block title %}
+Brainotes - Crie mapas mentais online
+{% endblock %}
+
+{% block body %}
+{% load static %}
+<div class="container">
+  <h2>Criar conta</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Sign up</button>
+  </form>
+</div>
+{% endblock %}
