@@ -50,8 +50,17 @@
           </ul>
           <ul class="navbar-nav align-items-lg-center ml-lg-auto">
             {% if user.is_authenticated %}
-            <h3>{{ user.username }}</h3>
-            <a href="{% url 'logout'%}">Sair</a>
+
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{ user.username }}
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="{% url 'newmindmap' %}">Novo mapa mental</a>
+                <a class="dropdown-item" href="{% url 'index' %}">Meus mapas mentais</a>
+                <a class="dropdown-item" href="{% url 'logout'%}">Sair</a>
+              </div>
+            </div>
             {% else %}
             <li class="nav-item d-none d-lg-block ml-lg-4">
               <a href="" class="btn btn-neutral"  data-toggle="modal" data-target="#signin-form">
