@@ -3,7 +3,7 @@ from django.http import HttpResponse, Http404
 from django.urls import reverse_lazy
 from django.views import generic
 
-from .models import Map
+from .models import Map, Listing
 from .forms import CustomUserCreationForm
 
 # Create your views here.
@@ -66,3 +66,27 @@ def newmindmap(request):
         print("Foi GET")
     context = {}
     return render(request, 'maps/new.html', context)
+
+def alllistings(request):
+    try:
+        listings = Listing.objects.all()
+    except Listing.DoesNotExist:
+        raise Http404("No listing found")
+    context = {
+        "listings": listings
+    }
+
+    return render(request, "maps/listings.html", context)
+
+def listing(request, listing_id):
+    try:
+        listing = Listing.objects.get(pk=listing_id)
+    except Listing.DoesNotExist:
+        raise Http404("No listing found")
+
+    context = {
+        "listing": listing,
+        "maps": listing.maps.all()
+    }
+
+    return render(request, "maps/listing.html", context)

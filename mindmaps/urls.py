@@ -7,4 +7,6 @@ urlpatterns = [
     path('new/', views.newmindmap, name="newmindmap"),
     path("m/<int:map_id>", views.map, name="map"),
     path('u/signup/', views.signup.as_view(), name='signup'),
+    path("l/", views.alllistings, name="alllistings"),
+    path("l/<int:listing_id>", views.listing, name="listing"),
 ]

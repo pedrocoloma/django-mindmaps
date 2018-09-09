@@ -28,6 +28,8 @@ class CustomUser(AbstractUser):
     nickname = models.CharField(max_length=32)
     public_id = models.CharField(max_length=16)
     bio = models.TextField()
+    # has mapas    maps = models.ManyToManyField(Map, blank=True, related_name="maps")
+    # follows listings
 
 
 class Map(models.Model):
@@ -42,9 +44,17 @@ class Map(models.Model):
     # views
     # number of shares
 
-class UsersMaps(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True)
+# class UsersMaps(models.Model):
+#     user = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True)
+#     maps = models.ManyToManyField(Map, blank=True, related_name="maps")
+
+class Listing(models.Model):
+    title = models.CharField(max_length=128)
+    public_id = models.CharField(max_length=16)
+    friendly_url = models.CharField(max_length=128)
+    language = models.CharField(max_length=8)
     maps = models.ManyToManyField(Map, blank=True, related_name="maps")
+    # keywords
 
 """
 Map

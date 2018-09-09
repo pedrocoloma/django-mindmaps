@@ -1,0 +1,20 @@
+{% extends "../maps/base.html" %}
+{% block title %}
+Brainotes - Crie mapas mentais online
+{% endblock %}
+
+{% block body %}
+{% load static %}
+<div class="container">
+  <h2>Listas de mapas mentais</h2>
+  <ul>
+    {% for listing in listings %}
+      <li>
+        <a href="{% url 'listing' listing.id %}">{{ listing.title }}</a>
+      </li>
+    {% empty %}
+    Nenhuma lista de mapas mentais encontrada
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}
