@@ -28,9 +28,19 @@ def map(request, map_id):
         map = Map.objects.get(pk=map_id) #public_id=map_id
     except Map.DoesNotExist:
         raise Http404("Map does not exist.")
-    context = {
-        "map": map
-    }
+    if map.ispublic == True:
+        context = {
+            "map": map
+        }
+    else:
+        if request.user.is_authenticated and map.author == request.user:
+            context = {
+                "map": map
+            }
+        else:
+            context = {
+                "map": {}
+            }
     return render(request, "maps/map.html", context)
 
 class signup(generic.CreateView):

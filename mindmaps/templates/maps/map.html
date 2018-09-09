@@ -5,10 +5,14 @@
 
 {% block body %}
 <main>
-    <h1>Map id {{ map.id }}</h1>
-    {{ map.title }}<br>
-    Criado por {{ map.author.username }}
-    <br>
+    {% if map %}
+      <h1>{{ map.title }}</h1>
+      Map id {{ map.id }}<br>
+      Criado por {{ map.author.username }}
+      <br>
+    {% else %}
+    <h2>Você não tem acesso a este Mapa Mental</h2>
+    {% endif %}
     <a href="{% url 'index' %}">Voltar</a>
   </main>
 {% endblock %}
