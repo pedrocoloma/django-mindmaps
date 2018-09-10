@@ -52,8 +52,9 @@
             {% if user.is_authenticated %}
 
             <div class="dropdown">
-              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {{ user.username }}
+              <button class="btn btn-icon btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="btn-inner--icon" color="white"><i class="fa fa-user"></i></span>
+                <span class="btn-inner--text">{{ user.username }}</span>
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <a class="dropdown-item" href="{% url 'newmindmap' %}">Novo mapa mental</a>
