@@ -65,7 +65,7 @@ def newmindmap(request):
     else:
         print("Foi GET")
     context = {}
-    return render(request, 'maps/new.html', context)
+    return render(request, 'maps/new/index.html', context)
 
 def alllistings(request):
     try:
