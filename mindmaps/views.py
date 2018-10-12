@@ -41,7 +41,13 @@ def map(request, map_id):
             context = {
                 "map": {}
             }
-    return render(request, "maps/map.html", context)
+    if request.method == 'POST':
+        print("Atualiza o mapa mental")
+        mapsjson = request.POST.get('mapsjson')
+        print(request.POST.get('mapsjson'))
+        Map.objects.get(pk=map_id).update(friendly_url=mapsjson)
+        return redirect("index")
+    return render(request, 'maps/new/index.html', context)
 
 class signup(generic.CreateView):
     form_class = CustomUserCreationForm
@@ -59,9 +65,10 @@ def newmindmap(request):
         ispublic = False
         author = request.user
         public_id = ""
-        friendly_url = ""
+        friendly_url = request.POST.get('mapsjson')
         language = "pt-br"
         Map.objects.create(title=title, ispublic=ispublic, author=author, public_id=public_id, friendly_url=friendly_url, language=language)
+        return redirect('index')
     else:
         print("Foi GET")
     context = {}

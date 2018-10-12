@@ -182,7 +182,7 @@
         <div id="logo" class="logo-bg">
             <span>
               <a class="navbar-brand mr-lg-5" href="{% url 'index' %}">
-                <img src="{% static "img/logo.png" %}" style="float: left; width: 50px;">
+                <img src="{% static 'img/logo.png'  %}" style="float: left; width: 50px;">
               </a>
             </span>
           </div>
@@ -190,7 +190,8 @@
           <div style="float:left; height: 40px; margin: 0; width: 70%;">
             <form method="post">
               {% csrf_token %}
-              <input type="text" name="title" id="searchbox" class="searchbox" placeholder="Mapa mental sem titulo">
+              <input type="text" name="title" id="searchbox" class="searchbox" value="{{ map.title }}" placeholder="Mapa mental sem titulo">
+              <input type="hidden" name="mapsjson" value="{{ map.friendly_url }}">
               <input type="submit" value="Concluído"/>
             </form>
           </div>

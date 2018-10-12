@@ -2,8 +2,6 @@ CACHE MANIFEST
 # timestamp 1536622094178
 
 CACHE:
-index.html
-about.html
 css/Aristo/images/bg_fallback.png
 css/Aristo/images/icon_sprite.png
 css/Aristo/images/progress_bar.gif
