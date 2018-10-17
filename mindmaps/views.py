@@ -24,29 +24,41 @@ def index(request):
         return render(request, "maps/index.html", context)
 
 def map(request, map_id):
-    try:
-        map = Map.objects.get(pk=map_id) #public_id=map_id
-    except Map.DoesNotExist:
-        raise Http404("Map does not exist.")
-    if map.ispublic == True:
-        context = {
-            "map": map
-        }
-    else:
-        if request.user.is_authenticated and map.author == request.user:
+    if request.method == 'GET':
+        try:
+            map = Map.objects.get(pk=map_id) #public_id=map_id
+        except Map.DoesNotExist:
+            raise Http404("Map does not exist.")
+        if map.ispublic == True:
+            if map.friendly_url == "":
+                map.friendly_url = '{"id":"bb41379b-d8df-465f-9361-d816b95ee5ec","title":"Ideia Principal","mindmap":{"root":{"id":"7016f01b-b59a-48f6-9e00-c2471c83be1f","parentId":null,"text":{"caption":"Ideia Principal","font":{"style":"normal","weight":"bold","decoration":"none","size":20,"color":"#000000"}},"offset":{"x":0,"y":0},"foldChildren":false,"branchColor":"#000000","children":[]}},"dates":{"created":1539780082994,"modified":1539780116621},"dimensions":{"x":4000,"y":2000},"autosave":false}'
             context = {
                 "map": map
             }
+            print(map.friendly_url)
         else:
-            context = {
-                "map": {}
-            }
+            if request.user.is_authenticated and map.author == request.user:
+                context = {
+                    "map": map
+                }
+                print(map.friendly_url)
+            else:
+                context = {
+                    "map": {}
+                }
+
     if request.method == 'POST':
         print("Atualiza o mapa mental")
         mapsjson = request.POST.get('mapsjson')
+        mapstitle = request.POST.get('title')
         print(request.POST.get('mapsjson'))
-        Map.objects.get(pk=map_id).update(friendly_url=mapsjson)
+        #Map.objects.get(pk=map_id).update(friendly_url=mapsjson)
+        mapToBeUpdate = Map.objects.get(pk=map_id)
+        mapToBeUpdate.friendly_url = mapsjson
+        mapToBeUpdate.title = mapstitle
+        mapToBeUpdate.save()
         return redirect("index")
+    
     return render(request, 'maps/new/index.html', context)
 
 class signup(generic.CreateView):
