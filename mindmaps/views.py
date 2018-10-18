@@ -35,13 +35,11 @@ def map(request, map_id):
             context = {
                 "map": map
             }
-            print(map.friendly_url)
         else:
             if request.user.is_authenticated and map.author == request.user:
                 context = {
                     "map": map
                 }
-                print(map.friendly_url)
             else:
                 context = {
                     "map": {}
