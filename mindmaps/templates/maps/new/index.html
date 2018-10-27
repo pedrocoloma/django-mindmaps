@@ -188,11 +188,23 @@
           </div>
 
           <div style="float:left; height: 40px; margin: 0; width: 70%;">
-            <form method="post">
+            <form method="post" style="padding-top: 5px;">
               {% csrf_token %}
               <input type="text" name="title" id="searchbox" class="searchbox" value="{{ map.title }}" placeholder="Mapa mental sem titulo">
               <input type="hidden" name="mapsjson" value="{{ map.friendly_url }}">
-              <input type="submit" value="Concluído"/>
+              <input type="submit" value="Salvar" style="font-size: 2rem; font-weight: 600; line-height: 1.5;
+              display: inline-block;
+              -webkit-user-select: none;
+                 -moz-user-select: none;
+                  -ms-user-select: none;
+                      user-select: none;
+              transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+              text-align: center; vertical-align: middle; white-space: nowrap;
+              color: #fff; border-color: #5e72e4; background-color: #5e72e4;
+              box-shadow: 0 4px 6px rgba(50, 50, 93, .11), 0 1px 3px rgba(0, 0, 0, .08);
+              border: 1px solid transparent; border-radius: .25rem;
+              font-size: 1.25rem; padding: .875rem 1.25rem;
+              border-radius: .3rem; cursor: pointer;"/>
             </form>
           </div>
       </div>

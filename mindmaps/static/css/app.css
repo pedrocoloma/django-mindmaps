@@ -722,13 +722,13 @@ html,body {
 }
 
 .searchbox {
-  height: 40px;
   margin: 0;
   font-size: 24px;
   color: #333;
   border: 0px;
   font-style: italic;
   width: 70%;
+  vertical-align: middle;
 }
 
 .searchbox:hover {
