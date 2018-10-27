@@ -21,19 +21,17 @@ Brainotes - Crie mapas mentais online
       <div class="map-listing row">
         <div class="col-md-4 col-sm-12">
           <center>
-            <img class="img-fluid" src="https://i.ytimg.com/vi/omjXBggpq-k/hqdefault.jpg?sqp=-oaymwEZCPYBEIoBSFXyq4qpAwsIARUAAIhCGAFwAQ==&rs=AOn4CLD74FaUdPjz1PZ8PdehsodNh9biKQ">
+            <img class="img-fluid" style="right: 0;" src="https://i.ytimg.com/vi/omjXBggpq-k/hqdefault.jpg?sqp=-oaymwEZCPYBEIoBSFXyq4qpAwsIARUAAIhCGAFwAQ==&rs=AOn4CLD74FaUdPjz1PZ8PdehsodNh9biKQ"/>
           </center>
         </div>
         <div class="col-md-8 col-sm-12">
           <a href="{% url 'map' map.id %}">
             <h3 class="map-listing-title">{{ map.title }}</h3>
           </a>
-          <a href="{% url 'map' map.id %}">
-            <p class="map-listing-description">{% if map.description %}{{ map.description }} {% else %} blwbcwe rwekcbwklec kewrcerwc {% endif %}</p>
-          </a>
-          <p class="map-listing-date">{% if map.description %}{{ map.description }} {% else %} Criado dia 10/09/2018 - 11:14 {% endif %}</p>
+          <p class="map-listing-description">{% if map.description %}{{ map.description }} {% else %} <small>Sem descrição</small>{% endif %}</p>
+          <p class="map-listing-date">{% if map.description %}{{ map.description }} {% endif %}</p>
         </div>
-      </div>
+      </div><br>
     {% empty %}
     No Mindmaps found.
     {% endfor %}
