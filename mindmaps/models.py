@@ -37,9 +37,10 @@ class Map(models.Model):
     ispublic = models.BooleanField(default=False)
     author = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True, related_name="mymaps")
     # creation timestamp
-    public_id = models.CharField(max_length=16)
-    friendly_url = models.CharField(max_length=128)
-    language = models.CharField(max_length=8)
+    public_id = models.CharField(max_length=16, null=True)
+    friendly_url = models.CharField(max_length=128, null=True)
+    language = models.CharField(max_length=8, null=True)
+    mapjson = models.TextField(default="", null=True)
     # keywords
     # views
     # number of shares

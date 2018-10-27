@@ -399,7 +399,7 @@
             <form method="post" style="padding-top: 5px;">
               {% csrf_token %}
               <input type="text" name="title" id="searchbox" class="searchbox" value="{{ map.title }}" placeholder="Mapa mental sem titulo">
-              <input type="hidden" name="mapsjson" value="{{ map.friendly_url }}">
+              <input type="hidden" name="mapsjson" value="{{ map.mapjson }}">
               <input type="submit" value="Salvar" style="font-size: 2rem; font-weight: 600; line-height: 1.5;
               display: inline-block;
               -webkit-user-select: none;

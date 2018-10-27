@@ -30,8 +30,8 @@ def map(request, map_id):
         except Map.DoesNotExist:
             raise Http404("Map does not exist.")
         if map.ispublic == True:
-            if map.friendly_url == "":
-                map.friendly_url = '{"id":"bb41379b-d8df-465f-9361-d816b95ee5ec","title":"Ideia Principal","mindmap":{"root":{"id":"7016f01b-b59a-48f6-9e00-c2471c83be1f","parentId":null,"text":{"caption":"Ideia Principal","font":{"style":"normal","weight":"bold","decoration":"none","size":20,"color":"#000000"}},"offset":{"x":0,"y":0},"foldChildren":false,"branchColor":"#000000","children":[]}},"dates":{"created":1539780082994,"modified":1539780116621},"dimensions":{"x":4000,"y":2000},"autosave":false}'
+            if map.mapjson == "":
+                map.mapjson = '{"id":"bb41379b-d8df-465f-9361-d816b95ee5ec","title":"Ideia Principal","mindmap":{"root":{"id":"7016f01b-b59a-48f6-9e00-c2471c83be1f","parentId":null,"text":{"caption":"Ideia Principal","font":{"style":"normal","weight":"bold","decoration":"none","size":20,"color":"#000000"}},"offset":{"x":0,"y":0},"foldChildren":false,"branchColor":"#000000","children":[]}},"dates":{"created":1539780082994,"modified":1539780116621},"dimensions":{"x":4000,"y":2000},"autosave":false}'
             context = {
                 "map": map
             }
@@ -52,7 +52,7 @@ def map(request, map_id):
         print(request.POST.get('mapsjson'))
         #Map.objects.get(pk=map_id).update(friendly_url=mapsjson)
         mapToBeUpdate = Map.objects.get(pk=map_id)
-        mapToBeUpdate.friendly_url = mapsjson
+        mapToBeUpdate.mapjson = mapsjson
         mapToBeUpdate.title = mapstitle
         mapToBeUpdate.save()
         return redirect("index")
@@ -75,9 +75,10 @@ def newmindmap(request):
         ispublic = False
         author = request.user
         public_id = ""
-        friendly_url = request.POST.get('mapsjson')
+        friendly_url = ""
+        mapjson = request.POST.get('mapsjson')
         language = "pt-br"
-        Map.objects.create(title=title, ispublic=ispublic, author=author, public_id=public_id, friendly_url=friendly_url, language=language)
+        Map.objects.create(title=title, ispublic=ispublic, author=author, public_id=public_id, friendly_url=friendly_url, mapjson=mapjson, language=language)
         return redirect('index')
     else:
         print("Foi GET")
