@@ -5,18 +5,34 @@ Brainotes - Crie mapas mentais online
 
 {% block body %}
 {% load static %}
-<div class="container">
-  <h2>{{ listing.title }}</h2>
-  <ul>
-    {% for map in maps %}
-      <li>
-        <a href="{% url 'map' map.id %}">{{ map.title }}</a>
-      </li>
-    {% empty %}
-    Nenhuma mapa encontrado nesta lista
-    {% endfor %}
-    <br><br>
-    <a href="{% url 'alllistings' %}">Ver todas as listas</a>
-  </ul>
-</div>
+
+<section class="section section-lg has-cards">
+    <div class="container container-lg">
+        <h2>{{ listing.title }}</h2>
+      
+        <div class="row">
+          {% for map in maps %}
+            <div class="col-md-3 mb-4 mb-md-0">
+              <div class="card  shadow border-0">
+                <a href="{% url 'map' map.id %}" title="Landing Page">
+                  <img src="http://michelleavanci.com.br/wp-content/uploads/2017/05/O-poder-do-h%C3%A1bito-1.png" class="card-img">
+                  <h5 class="title text-center pt-2">
+                    <span class="d-block mb-1">{{ map.title }}</span>
+                    <small class="h6 text-muted">Mapa mental resumindo os concenitos por trás do Best Seller O Poder do Hábito</small>
+                  </h5>
+                </a>
+              </div>
+            </div>
+          {% empty %}
+          Nenhuma mapa encontrado nesta lista
+          {% endfor %}
+          
+        </div>
+
+        <div class="row">
+         <br><br>
+         <a href="{% url 'alllistings' %}">Ver todas as listas</a>
+        </div>
+  </div>
+  </section>
 {% endblock %}

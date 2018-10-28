@@ -95,11 +95,7 @@
         </div>
         <div class="col-md-6">
           <ul class="nav nav-footer justify-content-end">
-            {% if user.is_authenticated %}
-            <li class="nav-item">
-              <a href="{% url 'logout'%}">Sair</a>
-            </li>
-            {% else %}
+            {% if user.is_authenticated == False%}
             <li class="nav-item">
               <a href="{% url 'signup'%}">Registrar</a>
             </li>
@@ -136,7 +132,7 @@
                               <span class="btn-inner--text">Facebook</span>
                           </a>
                           <a href="#" class="btn btn-neutral btn-icon">
-                              <span class="btn-inner--icon"><img src="{% static "img/icons/google.svg" %}"></span>
+                              <span class="btn-inner--icon"><img src="{% static 'img/icons/google.svg' %}"></span>
                               <span class="btn-inner--text">Google</span>
                           </a>
                       </div>
