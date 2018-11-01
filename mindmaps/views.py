@@ -50,7 +50,6 @@ def map(request, map_id):
         mapsjson = request.POST.get('mapsjson')
         mapstitle = request.POST.get('title')
         print(request.POST.get('mapsjson'))
-        #Map.objects.get(pk=map_id).update(friendly_url=mapsjson)
         mapToBeUpdate = Map.objects.get(pk=map_id)
         mapToBeUpdate.mapjson = mapsjson
         mapToBeUpdate.title = mapstitle
@@ -108,3 +107,13 @@ def listing(request, listing_id):
     }
 
     return render(request, "maps/listing.html", context)
+
+def myprofile(request):
+    context = {}
+    return render(request, "profile/myprofile.html", context)
+
+def publicprofile(request, profile_id):
+    context = {
+        "profile_id": profile_id
+    }
+    return render(request, "profile/publicprofile.html", context)

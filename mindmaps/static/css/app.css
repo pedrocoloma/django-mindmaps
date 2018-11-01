@@ -734,3 +734,16 @@ html,body {
 .searchbox:hover {
   background: #EEE;
 }
+
+.navbar-transparent {
+  background: white;
+}
+
+.cover-profile-top {
+  height: 0;
+}
+@media (min-width: 992px) {
+  .cover-profile-top {
+    height: 100px;
+  }
+}
