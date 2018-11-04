@@ -10,7 +10,7 @@ from .forms import CustomUserCreationForm
 def index(request):
     if request.user.is_authenticated:
         try:
-            maps = Map.objects.filter(author=request.user)
+            maps = Map.objects.filter(author=request.user).order_by("-id")
         except Map.DoesNotExist:
             raise Http404("No map found")
         context = {

@@ -11,11 +11,11 @@ Brainotes - Crie mapas mentais online
   
     {% for listing in listings %}
       <div class="row">
-        <h2>
-          <a href="{% url 'listing' listing.id %}">
-            {{ listing.title }}
-          </a>
-        </h2>
+        <div class="col-md-12">
+            <h2>
+                {{ listing.title }}
+              </h2>
+        </div>
       </div>
       
       <div class="row">
