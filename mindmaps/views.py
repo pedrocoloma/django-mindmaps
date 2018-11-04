@@ -45,11 +45,10 @@ def map(request, map_id):
                     "map": {}
                 }
 
-    if request.method == 'POST':
+    if request.method == 'POST':  # VERIFICA SE È DO USUÀRIO OU CRIA UM NOVO MAPA
         print("Atualiza o mapa mental")
         mapsjson = request.POST.get('mapsjson')
         mapstitle = request.POST.get('title')
-        print(request.POST.get('mapsjson'))
         mapToBeUpdate = Map.objects.get(pk=map_id)
         mapToBeUpdate.mapjson = mapsjson
         mapToBeUpdate.title = mapstitle
@@ -113,7 +112,17 @@ def myprofile(request):
     return render(request, "profile/myprofile.html", context)
 
 def publicprofile(request, profile_id):
+    try:
+        maps = Map.objects.filter(author=profile_id, ispublic=True)
+    except Map.DoesNotExist:
+        raise Http404("Nenhum mapa encontrado")
+    # try:
+    #     userprofile = CustomUser.objects.get(pk=profile_id)
+    # except CustomUser.DoesNotExist:
+    #     raise Http404("Nenhum usuário encontrado")
     context = {
-        "profile_id": profile_id
+        "maps": maps,
+        "profile_id": profile_id,
+        # "userprofile": userprofile
     }
     return render(request, "profile/publicprofile.html", context)

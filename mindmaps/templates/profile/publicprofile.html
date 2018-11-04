@@ -24,7 +24,7 @@ Brainotes - Crie mapas mentais online
             <div class="col-lg-3 order-lg-2">
               <div class="card-profile-image">
                 <a href="#">
-                  <center><img src="https://miro.medium.com/fit/c/240/240/1*cH8jt8Fqc1XmGqRfE2QYmw.jpeg" class="rounded-circle" style="max-width: 150px;"></center>
+                  <center><img src="{% static "img/icone-usuario.png" %}" class="rounded-circle" style="max-width: 150px;"></center>
                 </a>
               </div>
             </div>
@@ -52,7 +52,13 @@ Brainotes - Crie mapas mentais online
             </div>
           </div>
           <div class="text-center mt-3">
-            <h3>Pedro Coloma</h3>
+            <h3>{% if userprofile %} {{ userprofile}} {% else %} Usuário não encontrado {% endif %}
+              {% if user.id == profile_id %}
+                <a href="#"></a>
+                  <button class="btn btn-1 btn-outline-primary" type="button">Editar perfil</button>
+                </a>
+              {% endif %}
+            </h3>
             <div class="h6 font-weight-300">São Paulo, Brasil</div>
           </div>
           <div class="py-3 text-center">
@@ -64,39 +70,22 @@ Brainotes - Crie mapas mentais online
           </div>
           <h3>Mapas Mentais Públicos</h3>
           <div class="row">
+           
+              {% for map in maps %}
             <div class="col-md-3 mb-4 mb-md-0">
-                <div class="card  shadow border-0">
-                  <a href="/m/1" title="Landing Page">
-                    <img src="http://michelleavanci.com.br/wp-content/uploads/2017/05/O-poder-do-h%C3%A1bito-1.png" class="card-img">
-                    <h5 class="title text-center pt-2">
-                      <span class="d-block mb-1">Sonho Grande</span>
-                      <small class="h6 text-muted">Mapa mental resumindo os concenitos por trás do Best Seller O Poder do Hábito</small>
-                    </h5>
-                  </a>
-                </div>
+              <div class="card  shadow border-0">
+                <a href="{% url 'map' map.id %}" title="Landing Page">
+                  <img src="{% static "img/mindmap-default-icon.png" %}" class="card-img">
+                  <h5 class="title text-center pt-2">
+                    <span class="d-block mb-1">{{ map.title }}</span>
+                    <small class="h6 text-muted">Mapa mental resumindo os concenitos por trás do Best Seller O Poder do Hábito</small>
+                  </h5>
+                </a>
               </div>
-              <div class="col-md-3 mb-4 mb-md-0">
-                <div class="card  shadow border-0">
-                  <a href="/m/1" title="Landing Page">
-                    <img src="http://michelleavanci.com.br/wp-content/uploads/2017/05/O-poder-do-h%C3%A1bito-1.png" class="card-img">
-                    <h5 class="title text-center pt-2">
-                      <span class="d-block mb-1">Sonho Grande</span>
-                      <small class="h6 text-muted">Mapa mental resumindo os concenitos por trás do Best Seller O Poder do Hábito</small>
-                    </h5>
-                  </a>
-                </div>
-              </div>
-              <div class="col-md-3 mb-4 mb-md-0">
-                <div class="card  shadow border-0">
-                  <a href="/m/1" title="Landing Page">
-                    <img src="http://michelleavanci.com.br/wp-content/uploads/2017/05/O-poder-do-h%C3%A1bito-1.png" class="card-img">
-                    <h5 class="title text-center pt-2">
-                      <span class="d-block mb-1">Sonho Grande</span>
-                      <small class="h6 text-muted">Mapa mental resumindo os concenitos por trás do Best Seller O Poder do Hábito</small>
-                    </h5>
-                  </a>
-                </div>
-              </div>
+            </div>
+          {% empty %}
+          <p>Nenhum mapa mental publicado.</p>
+          {% endfor %}
           </div>
         </div>
       </div>

@@ -23,7 +23,7 @@ Brainotes - Crie mapas mentais online
           <div class="col-md-3 mb-4 mb-md-0">
             <div class="card  shadow border-0">
               <a href="{% url 'map' map.id %}" title="Landing Page">
-                <img src="http://michelleavanci.com.br/wp-content/uploads/2017/05/O-poder-do-h%C3%A1bito-1.png" class="card-img">
+                <img src="{% static "img/mindmap-default-icon.png" %}" class="card-img">
                 <h5 class="title text-center pt-2">
                   <span class="d-block mb-1">{{ map.title }}</span>
                   <small class="h6 text-muted">Mapa mental resumindo os concenitos por trás do Best Seller O Poder do Hábito</small>
