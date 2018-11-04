@@ -41,6 +41,7 @@ class Map(models.Model):
     friendly_url = models.CharField(max_length=128, null=True)
     language = models.CharField(max_length=8, null=True)
     mapjson = models.TextField(default="", null=True)
+    description = models.TextField(default="", null=True)
     # keywords
     # views
     # number of shares

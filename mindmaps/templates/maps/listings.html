@@ -26,7 +26,7 @@ Brainotes - Crie mapas mentais online
                 <img src="{% static "img/mindmap-default-icon.png" %}" class="card-img">
                 <h5 class="title text-center pt-2">
                   <span class="d-block mb-1">{{ map.title }}</span>
-                  <small class="h6 text-muted">Mapa mental resumindo os concenitos por trás do Best Seller O Poder do Hábito</small>
+                  <small class="h6 text-muted">{% if map.description %}{{ map.description }} {% else %} <i>Sem descrição</i> {% endif %}</small>
                 </h5>
               </a>
             </div>
