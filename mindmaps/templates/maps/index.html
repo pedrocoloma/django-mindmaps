@@ -137,12 +137,12 @@ Brainotes - Crie mapas mentais online
     </div>
   </section>
 
-
+  {% for listing in listings %}
   <section class="section section-lg no-bottom">
       <div class="container">
         <div class="row row-grid justify-content-center">
           <div class="col-lg-8 text-center">
-            <h2 class="display-4">Mapas Mentais em destaque</h2>
+            <h2 class="display-4">{{ listing.title }}</h2>
           </div>
         </div>
       </div>
@@ -152,48 +152,25 @@ Brainotes - Crie mapas mentais online
   <section class="section section-lg has-cards">
     <div class="container container-lg">
       <div class="row">
-        <div class="col-md-4 mb-5 mb-md-0">
+        {% for map in listing.maps.all %}
+        <div class="col-md-4 mb-5 mb-md-8">
           <div class="card  shadow border-0">
-            <a href="" title="Landing Page">
-              <img src="http://michelleavanci.com.br/wp-content/uploads/2017/05/O-poder-do-h%C3%A1bito-1.png" class="card-img">
+            <a href="{% url 'map' map.id %}" title="Landing Page">
+              <img src="{% if map.imageurl %} {{ map.imageurl }} {% else %} {% static 'img/mindmap-default-icon.png' %} {% endif %}" class="card-img">
               <h5 class="title text-center pt-2">
-                <span class="d-block mb-1">O poder do hábito</span>
-                <small class="h6 text-muted">Mapa mental resumindo os concenitos por trás do Best Seller O Poder do Hábito</small>
+                <span class="d-block mb-1">{{ map.title }}</span>
+                <small class="h6 text-muted">{% if map.description %}{{ map.description|truncatechars:100}} {% else %} <i>Sem descrição</i> {% endif %}</small>
               </h5>
             </a>
           </div>
         </div>
-        <div class="col-md-4 mb-5 mb-md-0">
-          <div class="card  shadow border-0">
-            <a href="" title="Landing Page">
-              <img src="https://i.ytimg.com/vi/4tjNQQvQ2k4/hqdefault.jpg?sqp=-oaymwEZCPYBEIoBSFXyq4qpAwsIARUAAIhCGAFwAQ==&rs=AOn4CLDRafZmLZXdeuHJnCc3M8M4CF-S4w" class="card-img">
-              <h5 class="title text-center pt-2">
-                <span class="d-block mb-1">O poder do Agora</span>
-                <small class="h6 text-muted">Mapa mental resumindo os concenitos por trás do Best Seller O Poder do Hábito</small>
-              </h5>
-            </a>
-          </div>
-        </div>
-        <div class="col-md-4 mb-5 mb-md-0">
-          <div class="card  shadow border-0">
-            <a href="" title="Landing Page">
-              <img src="http://michelleavanci.com.br/wp-content/uploads/2017/05/O-poder-do-h%C3%A1bito-1.png" class="card-img">
-              <h5 class="title text-center pt-2">
-                <span class="d-block mb-1">O poder do hábito</span>
-                <small class="h6 text-muted">Mapa mental resumindo os concenitos por trás do Best Seller O Poder do Hábito</small>
-              </h5>
-            </a>
-          </div>
-        </div>
-        <div class="col-md-4 mb-5 mb-md-0">
-          <div class="card  shadow border-0">
-            <a href="" title="Landing Page">
-              <img src="https://i.ytimg.com/vi/omjXBggpq-k/hqdefault.jpg?sqp=-oaymwEZCPYBEIoBSFXyq4qpAwsIARUAAIhCGAFwAQ==&rs=AOn4CLD74FaUdPjz1PZ8PdehsodNh9biKQ" class="card-img">
-              <h5 class="title text-center pt-2">
-                <span class="d-block mb-1">O poder do hábito</span>
-                <small class="h6 text-muted">Mapa mental resumindo os concenitos por trás do Best Seller O Poder do Hábito</small>
-              </h5>
-            </a>
+        {% endfor %}
+        <div class="col-md-4 mb-5 mb-md-8">
+          <div class="card  shadow border-0" style="background: #E5E5E5; height: 100%; display: flex; justify-content: center; align-items: center;">
+              <a href="{% url 'listing' listing.id %}" style="font-size: 36px; color: #666; font-weight: 300; 
+              position: absolute; top: 40%;
+            ">Ver mais
+                </a>
           </div>
         </div>
 
@@ -201,139 +178,5 @@ Brainotes - Crie mapas mentais online
     </div>
   </section>
 
-  <section class="section section-lg no-bottom">
-      <div class="container">
-        <div class="row row-grid justify-content-center">
-          <div class="col-lg-8 text-center">
-            <h2 class="display-4">Mapas Mentais de livros famosos</h2>
-          </div>
-        </div>
-      </div>
-    </section>
-</main>
-
-<section class="section section-lg has-cards">
-    <div class="container container-lg">
-        <div class="row">
-            <div class="col-md-4 mb-5 mb-md-0">
-              <div class="card  shadow border-0">
-                <a href="" title="Landing Page">
-                  <img src="http://michelleavanci.com.br/wp-content/uploads/2017/05/O-poder-do-h%C3%A1bito-1.png" class="card-img">
-                  <h5 class="title text-center pt-2">
-                    <span class="d-block mb-1">O poder do hábito</span>
-                    <small class="h6 text-muted">Mapa mental resumindo os concenitos por trás do Best Seller O Poder do Hábito</small>
-                  </h5>
-                </a>
-              </div>
-            </div>
-            <div class="col-md-4 mb-5 mb-md-0">
-              <div class="card  shadow border-0">
-                <a href="" title="Landing Page">
-                  <img src="https://i.ytimg.com/vi/4tjNQQvQ2k4/hqdefault.jpg?sqp=-oaymwEZCPYBEIoBSFXyq4qpAwsIARUAAIhCGAFwAQ==&rs=AOn4CLDRafZmLZXdeuHJnCc3M8M4CF-S4w" class="card-img">
-                  <h5 class="title text-center pt-2">
-                    <span class="d-block mb-1">O poder do Agora</span>
-                    <small class="h6 text-muted">Mapa mental resumindo os concenitos por trás do Best Seller O Poder do Hábito</small>
-                  </h5>
-                </a>
-              </div>
-            </div>
-            <div class="col-md-4 mb-5 mb-md-0">
-              <div class="card  shadow border-0">
-                <a href="" title="Landing Page">
-                  <img src="http://michelleavanci.com.br/wp-content/uploads/2017/05/O-poder-do-h%C3%A1bito-1.png" class="card-img">
-                  <h5 class="title text-center pt-2">
-                    <span class="d-block mb-1">O poder do hábito</span>
-                    <small class="h6 text-muted">Mapa mental resumindo os concenitos por trás do Best Seller O Poder do Hábito</small>
-                  </h5>
-                </a>
-              </div>
-            </div>
-            <div class="col-md-4 mb-5 mb-md-0">
-              <div class="card  shadow border-0">
-                <a href="" title="Landing Page">
-                  <img src="https://i.ytimg.com/vi/omjXBggpq-k/hqdefault.jpg?sqp=-oaymwEZCPYBEIoBSFXyq4qpAwsIARUAAIhCGAFwAQ==&rs=AOn4CLD74FaUdPjz1PZ8PdehsodNh9biKQ" class="card-img">
-                  <h5 class="title text-center pt-2">
-                    <span class="d-block mb-1">O poder do hábito</span>
-                    <small class="h6 text-muted">Mapa mental resumindo os concenitos por trás do Best Seller O Poder do Hábito</small>
-                  </h5>
-                </a>
-              </div>
-            </div>
-
-          </div>
-      </div>
-  </section>
-
-
-  <section class="section section-lg no-bottom">
-      <div class="container">
-        <div class="row row-grid justify-content-center">
-          <div class="col-lg-8 text-center">
-            <h2 class="display-4">Mapas Mentais de Tecnologia</h2>
-          </div>
-        </div>
-      </div>
-    </section>
-</main>
-
-<section class="section section-lg has-cards">
-    <div class="container container-lg">
-        <div class="row">
-          <div class="col-md-4 mb-5 mb-md-0">
-            <div class="card  shadow border-0">
-              <a href="" title="Landing Page">
-                <img src="{% static "img/mindmap-default-icon.png" %}" class="card-img">
-                <h5 class="title text-center pt-2">
-                  <span class="d-block mb-1">O poder do hábito</span>
-                  <small class="h6 text-muted">Mapa mental resumindo os concenitos por trás do Best Seller O Poder do Hábito</small>
-                </h5>
-              </a>
-            </div>
-          </div>
-          <div class="col-md-4 mb-5 mb-md-0">
-            <div class="card  shadow border-0">
-              <a href="" title="Landing Page">
-                <img src="{% static "img/mindmap-default-icon.png" %}" class="card-img">
-                <h5 class="title text-center pt-2">
-                  <span class="d-block mb-1">O poder do Agora</span>
-                  <small class="h6 text-muted">Mapa mental resumindo os concenitos por trás do Best Seller O Poder do Hábito</small>
-                </h5>
-              </a>
-            </div>
-          </div>
-          <div class="col-md-4 mb-5 mb-md-0">
-            <div class="card  shadow border-0">
-              <a href="" title="Landing Page">
-                <img src="{% static "img/mindmap-default-icon.png" %}" class="card-img">
-                <h5 class="title text-center pt-2">
-                  <span class="d-block mb-1">O poder do hábito</span>
-                  <small class="h6 text-muted">Mapa mental resumindo os concenitos por trás do Best Seller O Poder do Hábito</small>
-                </h5>
-              </a>
-            </div>
-          </div>
-          <div class="col-md-4 mb-5 mb-md-0">
-            <div class="card  shadow border-0">
-              <a href="" title="Landing Page">
-                <img src="{% static "img/mindmap-default-icon.png" %}" class="card-img">
-                <h5 class="title text-center pt-2">
-                  <span class="d-block mb-1">O poder do hábito</span>
-                  <small class="h6 text-muted">Mapa mental resumindo os concenitos por trás do Best Seller O Poder do Hábito</small>
-                </h5>
-              </a>
-            </div>
-          </div>
-
-        </div>
-      </div>
-  </section>
-  <ul>
-    {% for map in maps %}
-      <li>
-        <a href="{% url 'map' map.id %}">{{ map.title }}</a>
-      </li>
-    {% empty %}
-    No Mindmaps found.
-    {% endfor %}
-  </ul>
+  {% endfor %}
 {% endblock %}

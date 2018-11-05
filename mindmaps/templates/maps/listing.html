@@ -18,7 +18,7 @@ Brainotes - Crie mapas mentais online
                   <img src="{% if map.imageurl %} {{ map.imageurl }} {% else %} {% static 'img/mindmap-default-icon.png' %} {% endif %}" class="card-img">
                   <h5 class="title text-center pt-2">
                     <span class="d-block mb-1">{{ map.title }}</span>
-                    <small class="h6 text-muted">{% if map.description %}{{ map.description }} {% else %} <i>Sem descrição</i> {% endif %}</small>
+                    <small class="h6 text-muted">{% if map.description %} {{ map.description|truncatechars:100 }} {% else %} <i>Sem descrição</i> {% endif %}</small>
                   </h5>
                 </a>
               </div>

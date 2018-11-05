@@ -18,8 +18,13 @@ def index(request):
         }
         return render(request, 'maps/mymaps.html', context)
     else:
+        try:
+            listings = Listing.objects.all()
+        except Listing.DoesNotExist:
+            raise Http404("No listing found")
         context = {
             "maps": Map.objects.all(),
+            "listings": listings
         }
         return render(request, "maps/index.html", context)
 
