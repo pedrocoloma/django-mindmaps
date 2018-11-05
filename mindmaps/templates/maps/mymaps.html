@@ -21,7 +21,7 @@ Brainotes - Crie mapas mentais online
       <div class="map-listing row">
         <div class="col-md-4 col-sm-12">
           <center>
-            <img class="img-fluid" style="right: 0; max-width: 240px;" src="{% static "img/mindmap-default-icon.png" %}"/>
+            <img class="img-fluid" style="right: 0; max-width: 240px;" src="{% if map.imageurl %} {{ map.imageurl }} {% else %} {% static 'img/mindmap-default-icon.png' %} {% endif %}"/>
           </center>
         </div>
         <div class="col-md-8 col-sm-12">

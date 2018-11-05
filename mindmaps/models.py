@@ -42,6 +42,7 @@ class Map(models.Model):
     language = models.CharField(max_length=8, null=True)
     mapjson = models.TextField(default="", null=True)
     description = models.TextField(default="", null=True)
+    imageurl = models.CharField(max_length=512, null=True)
     # keywords
     # views
     # number of shares
