@@ -49,13 +49,31 @@ def map(request, map_id):
                 return render(request, "maps/noaccess.html")
 
     if request.method == 'POST':  # VERIFICA SE È DO USUÀRIO OU CRIA UM NOVO MAPA
-        print("Atualiza o mapa mental")
-        mapsjson = request.POST.get('mapsjson')
-        mapstitle = request.POST.get('title')
-        mapToBeUpdate = Map.objects.get(pk=map_id)
-        mapToBeUpdate.mapjson = mapsjson
-        mapToBeUpdate.title = mapstitle
-        mapToBeUpdate.save()
+        try:
+            map = Map.objects.get(pk=map_id) #public_id=map_id
+        except Map.DoesNotExist:
+            raise Http404("Map does not exist.")
+        if request.user.is_authenticated:
+            if map.author == request.user: 
+                print("Atualiza o mapa mental")
+                mapsjson = request.POST.get('mapsjson')
+                mapstitle = request.POST.get('title')
+                mapToBeUpdate = Map.objects.get(pk=map_id)
+                mapToBeUpdate.mapjson = mapsjson
+                mapToBeUpdate.title = mapstitle
+                mapToBeUpdate.save()
+            else:
+                print("Forka o mapa mental")
+                title = request.POST.get('title')
+                ispublic = False
+                author = request.user
+                public_id = ""
+                friendly_url = ""
+                mapjson = request.POST.get('mapsjson')
+                language = "pt-br"
+                Map.objects.create(title=title, ispublic=ispublic, author=author, public_id=public_id, friendly_url=friendly_url, mapjson=mapjson, language=language)
+        else:
+            return redirect("login")
         return redirect("index")
     
     return render(request, 'maps/new/index.html', context)
