@@ -1,0 +1,27 @@
+{% extends "../maps/base.html" %}
+{% block title %}
+Brainotes - Crie mapas mentais online
+{% endblock %}
+
+{% block body %}
+{% load static %}
+
+<section class="section section-lg has-cards">
+    <div class="container container-lg">
+        <h2>{{ listing.title }}</h2>
+      
+        <div class="row">
+          <h2>Você não possui acesso a este Mapa Mental</h2>
+          <p>Isso se deve a um dos dois: este Mapa Mental não te pertence ou não é público <br>
+
+      Caso este Mapa Mental seja seu, <a href="" data-toggle="modal" data-target="#signin-form">faça login</a> para poder visualizá-lo e editá-lo.</p>
+          
+        </div>
+
+        <div class="row">
+         <br><br>
+         <a href="{% url 'alllistings' %}">Ver Mapas Mentais Públicos</a>
+        </div>
+  </div>
+  </section>
+{% endblock %}

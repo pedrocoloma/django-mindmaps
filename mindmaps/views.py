@@ -46,9 +46,7 @@ def map(request, map_id):
                     "map": map
                 }
             else:
-                context = {
-                    "map": {}
-                }
+                return render(request, "maps/noaccess.html")
 
     if request.method == 'POST':  # VERIFICA SE È DO USUÀRIO OU CRIA UM NOVO MAPA
         print("Atualiza o mapa mental")
