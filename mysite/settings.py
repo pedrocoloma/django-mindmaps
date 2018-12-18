@@ -114,7 +114,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-AUTH_USER_MODEL = 'mindmaps.CustomUser'
+AUTH_USER_MODEL = 'mindmaps.User'
 
 LOGIN_REDIRECT_URL = 'index'
 

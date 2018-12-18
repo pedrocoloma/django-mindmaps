@@ -54,7 +54,7 @@
             <div class="dropdown">
               <button class="btn btn-icon btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="btn-inner--icon" color="white"><i class="fa fa-user"></i></span>
-                <span class="btn-inner--text">{{ user.username }}</span>
+                <span class="btn-inner--text">{% if nick %}{{ nick }}{% else %}{{ user.email }}{% endif %}</span>
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <a class="dropdown-item" href="{% url 'newmindmap' %}">Novo mapa mental</a>
@@ -134,7 +134,7 @@
                                   <div class="input-group-prepend">
                                       <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                                   </div>
-                                  <input class="form-control" placeholder="Email" type="text" name="username" autofocus required id="id_username">
+                                  <input class="form-control" placeholder="Email" type="email" name="username" autofocus required id="id_username">
                               </div>
                           </div>
                           <div class="form-group">
@@ -173,9 +173,9 @@
                           <div class="form-group">
                             <div class="input-group input-group-alternative mb-3">
                               <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
+                                <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                               </div>
-                              <input class="form-control" placeholder="Usuário" type="text" name="username" maxlength="150" autofocus required id="id_username">
+                              <input class="form-control" placeholder="Email" type="email" name="email" maxlength="150" autofocus required id="id_username">
                             </div>
                           </div>
                           <!-- <div class="form-group mb-3">
