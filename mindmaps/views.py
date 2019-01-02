@@ -2,9 +2,10 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404
 from django.urls import reverse_lazy
 from django.views import generic
+from django.contrib.auth import authenticate, login
 
 from .models import Map, Listing
-from .forms import CustomUserCreationForm
+from .forms import UserCreationForm
 
 # Create your views here.
 def index(request):
@@ -14,12 +15,18 @@ def index(request):
         except Map.DoesNotExist:
             raise Http404("No map found")
         context = {
-            "maps": maps
+            "maps": maps,
+            "nick": request.user.email.split('@')[0]
         }
         return render(request, 'maps/mymaps.html', context)
     else:
+        try:
+            listings = Listing.objects.all()
+        except Listing.DoesNotExist:
+            raise Http404("No listing found")
         context = {
             "maps": Map.objects.all(),
+            "listings": listings
         }
         return render(request, "maps/index.html", context)
 
@@ -38,33 +45,63 @@ def map(request, map_id):
         else:
             if request.user.is_authenticated and map.author == request.user:
                 context = {
-                    "map": map
+                    "map": map,
+                    "nick": request.user.email.split('@')[0]
                 }
             else:
-                context = {
-                    "map": {}
-                }
+                return render(request, "maps/noaccess.html")
 
     if request.method == 'POST':  # VERIFICA SE È DO USUÀRIO OU CRIA UM NOVO MAPA
-        print("Atualiza o mapa mental")
-        mapsjson = request.POST.get('mapsjson')
-        mapstitle = request.POST.get('title')
-        mapToBeUpdate = Map.objects.get(pk=map_id)
-        mapToBeUpdate.mapjson = mapsjson
-        mapToBeUpdate.title = mapstitle
-        mapToBeUpdate.save()
+        try:
+            map = Map.objects.get(pk=map_id) #public_id=map_id
+        except Map.DoesNotExist:
+            raise Http404("Map does not exist.")
+        if request.user.is_authenticated:
+            if map.author == request.user: 
+                print("Atualiza o mapa mental")
+                mapsjson = request.POST.get('mapsjson')
+                mapstitle = request.POST.get('title')
+                mapToBeUpdate = Map.objects.get(pk=map_id)
+                mapToBeUpdate.mapjson = mapsjson
+                mapToBeUpdate.title = mapstitle
+                mapToBeUpdate.save()
+            else:
+                print("Forka o mapa mental")
+                title = request.POST.get('title')
+                ispublic = False
+                author = request.user
+                public_id = ""
+                friendly_url = ""
+                mapjson = request.POST.get('mapsjson')
+                language = "pt-br"
+                Map.objects.create(title=title, ispublic=ispublic, author=author, public_id=public_id, friendly_url=friendly_url, mapjson=mapjson, language=language)
+        else:
+            return redirect("login")
         return redirect("index")
     
     return render(request, 'maps/new/index.html', context)
 
 class signup(generic.CreateView):
-    form_class = CustomUserCreationForm
+    form_class = UserCreationForm
     success_url = reverse_lazy('login')
     template_name = 'signup.html'
 
+    def form_valid(self, form):
+        #save the new user first
+        form.save()
+        #get the username and password
+        username = form.cleaned_data['email']
+        password = form.cleaned_data['password1']
+        #authenticate user then login
+        user = authenticate(username=username, password=password)
+        login(self.request, user)
+        return redirect('index')
+
 def newmindmap(request):
     if request.user.is_authenticated:
-        print("Está autenticado")
+        context = {
+            "nick": request.user.email.split('@')[0]
+        }
     else:
         print("Não está autenticado")
 
@@ -88,9 +125,16 @@ def alllistings(request):
         listings = Listing.objects.all()
     except Listing.DoesNotExist:
         raise Http404("No listing found")
-    context = {
-        "listings": listings
-    }
+
+    if request.user.is_authenticated:
+        context = {
+            "listings": listings,
+            "nick": request.user.email.split('@')[0]
+        }
+    else:
+        context = {
+            "listings": listings
+        }
 
     return render(request, "maps/listings.html", context)
 
@@ -99,11 +143,18 @@ def listing(request, listing_id):
         listing = Listing.objects.get(pk=listing_id)
     except Listing.DoesNotExist:
         raise Http404("No listing found")
-
-    context = {
-        "listing": listing,
-        "maps": listing.maps.all()
-    }
+    
+    if request.user.is_authenticated:
+        context = {
+            "listing": listing,
+            "maps": listing.maps.all(),
+            "nick": request.user.email.split('@')[0]
+        }
+    else:
+        context = {
+            "listing": listing,
+            "maps": listing.maps.all(),
+        }
 
     return render(request, "maps/listing.html", context)
 

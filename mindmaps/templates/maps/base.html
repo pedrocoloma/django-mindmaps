@@ -54,7 +54,7 @@
             <div class="dropdown">
               <button class="btn btn-icon btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="btn-inner--icon" color="white"><i class="fa fa-user"></i></span>
-                <span class="btn-inner--text">{{ user.username }}</span>
+                <span class="btn-inner--text">{% if nick %}{{ nick }}{% else %}{{ user.email }}{% endif %}</span>
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <a class="dropdown-item" href="{% url 'newmindmap' %}">Novo mapa mental</a>
@@ -125,21 +125,8 @@
               <div class="card bg-secondary shadow border-0">
                   <div class="card-header bg-white pb-5">
                       <div class="display-3 text-center mb-3"><small>Entrar</small></div>
-                      <div class="btn-wrapper text-center">
-                          <a href="#" class="btn btn-neutral btn-icon">
-                              <i class="fa fa-facebook" style="color: #3b5998;"></i>
-                              <span class="btn-inner--text">Facebook</span>
-                          </a>
-                          <a href="#" class="btn btn-neutral btn-icon">
-                              <span class="btn-inner--icon"><img src="{% static 'img/icons/google.svg' %}"></span>
-                              <span class="btn-inner--text">Google</span>
-                          </a>
-                      </div>
                   </div>
                   <div class="card-body px-lg-5 py-lg-5">
-                      <div class="text-center text-muted mb-4">
-                          <small>Ou entre usando email e senha</small>
-                      </div>
                       <form role="form" method="post" action="/u/login/">
                         {% csrf_token %}
                           <div class="form-group mb-3">
@@ -147,7 +134,7 @@
                                   <div class="input-group-prepend">
                                       <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                                   </div>
-                                  <input class="form-control" placeholder="Email" type="text" name="username" autofocus required id="id_username">
+                                  <input class="form-control" placeholder="Email" type="email" name="username" autofocus required id="id_username">
                               </div>
                           </div>
                           <div class="form-group">
@@ -179,29 +166,16 @@
               <div class="card bg-secondary shadow border-0">
                   <div class="card-header bg-white pb-5">
                       <div class="display-3 text-center mb-3"><small>Criar uma conta grátis</small></div>
-                      <div class="btn-wrapper text-center">
-                          <a href="#" class="btn btn-neutral btn-icon">
-                              <i class="fa fa-facebook" style="color: #3b5998;"></i>
-                              <span class="btn-inner--text">Facebook</span>
-                          </a>
-                          <a href="#" class="btn btn-neutral btn-icon">
-                              <span class="btn-inner--icon"><img src="{% static 'img/icons/google.svg' %}"></span>
-                              <span class="btn-inner--text">Google</span>
-                          </a>
-                      </div>
                   </div>
                   <div class="card-body px-lg-5 py-lg-5">
-                      <div class="text-center text-muted mb-4">
-                          <small>Ou crie uma conta usando seu email</small>
-                      </div>
                       <form role="form" action="/u/signup/" method="post">
                         {% csrf_token %}
                           <div class="form-group">
                             <div class="input-group input-group-alternative mb-3">
                               <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
+                                <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                               </div>
-                              <input class="form-control" placeholder="Usuário" type="text" name="username" maxlength="150" autofocus required id="id_username">
+                              <input class="form-control" placeholder="Email" type="email" name="email" maxlength="150" autofocus required id="id_username">
                             </div>
                           </div>
                           <!-- <div class="form-group mb-3">
@@ -225,7 +199,7 @@
                                   <div class="input-group-prepend">
                                       <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                                   </div>
-                                  <input class="form-control" placeholder="Senha" type="password" name="password2" required id="id_password2">
+                                  <input class="form-control" placeholder="Repita a senha" type="password" name="password2" required id="id_password2">
                               </div>
                           </div>
                           <div class="text-center">

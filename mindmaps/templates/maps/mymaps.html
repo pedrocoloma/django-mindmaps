@@ -14,19 +14,19 @@ Brainotes - Crie mapas mentais online
   </a>
   <a href="{% url 'alllistings'%}" class="btn btn-icon btn-default">
     <span class="btn-inner--icon" color="white"><i class="fa fa-list"></i></span>
-    <span class="btn-inner--text">Listas de mapas mentais</span>
+    <span class="btn-inner--text">Listas de mapas mentais públicas</span>
   </a>
   <br><br>
     {% for map in maps %}
       <div class="map-listing row">
         <div class="col-md-4 col-sm-12">
           <center>
-            <img class="img-fluid" style="right: 0; max-width: 240px;" src="{% static "img/mindmap-default-icon.png" %}"/>
+            <img class="img-fluid" style="right: 0; max-width: 240px;" src="{% if map.imageurl %} {{ map.imageurl }} {% else %} {% static 'img/mindmap-default-icon.png' %} {% endif %}"/>
           </center>
         </div>
         <div class="col-md-8 col-sm-12">
           <a href="{% url 'map' map.id %}">
-            <h3 class="map-listing-title">{{ map.title }}</h3>
+            <h3 class="map-listing-title">{% if map.title %}{{ map.title }} {% else %} <i>Sem título</i>{% endif %}</h3>
           </a>
           <p class="map-listing-description">{% if map.description %}{{ map.description }} {% else %} <i>Sem descrição</i> {% endif %}</p>
           <p class="map-listing-date">{% if map.lastchange %}{{ map.lastchange }} {% endif %}</p>
