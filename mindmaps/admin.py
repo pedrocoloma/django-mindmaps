@@ -3,13 +3,14 @@ from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
 from django.contrib.auth import get_user_model
 from django.utils.translation import ugettext_lazy as _
 
-from .models import Map, User, Listing
+from .models import Map, User, Listing, MapView
 from .forms import UserCreationForm, UserChangeForm
 
 # Register your models here.
 # admin.site.register(User)
 admin.site.register(Map)
 admin.site.register(Listing)
+admin.site.register(MapView)
 
 class UserAdmin(DjangoUserAdmin):
     """Define admin model for custom User model with no email field."""
