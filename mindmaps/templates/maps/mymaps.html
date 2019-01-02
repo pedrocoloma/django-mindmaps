@@ -26,7 +26,7 @@ Brainotes - Crie mapas mentais online
         </div>
         <div class="col-md-8 col-sm-12">
           <a href="{% url 'map' map.id %}">
-            <h3 class="map-listing-title">{{ map.title }}</h3>
+            <h3 class="map-listing-title">{% if map.title %}{{ map.title }} {% else %} <i>Sem título</i>{% endif %}</h3>
           </a>
           <p class="map-listing-description">{% if map.description %}{{ map.description }} {% else %} <i>Sem descrição</i> {% endif %}</p>
           <p class="map-listing-date">{% if map.lastchange %}{{ map.lastchange }} {% endif %}</p>

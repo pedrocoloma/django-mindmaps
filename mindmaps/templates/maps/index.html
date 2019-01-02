@@ -29,7 +29,7 @@ Brainotes - Crie mapas mentais online
               </h1>
               <p class="lead">Criar um mapa mental é a forma mais natural do cérebro aprender algo novo. Use o Brainotes para criar mapas mentais e, se quiser, compartilhe com os demais.</p>
               <a href="#" class="btn btn-primary btn-lg mb-3 mb-sm-0">
-                  <span class="btn-inner--text" data-toggle="modal" data-target="#signup-form">Criar uma conta</span>
+                  <span class="btn-inner--text" data-toggle="modal" data-target="#signup-form">Criar uma conta grátis</span>
                 </a>
             </div>
           </div>
@@ -38,110 +38,12 @@ Brainotes - Crie mapas mentais online
     </section>
     <!-- 1st Hero Variation -->
   </div>
-
-  <section class="section section-lg">
-    <div class="container">
-      <div class="row row-grid align-items-center">
-        <div class="col-md-6 order-md-1">
-          <img src="{% static "img/demo.gif" %}" class="img-fluid">
-        </div>
-        <div class="col-md-6 order-md-2">
-          <div class="pr-md-5">
-            <div class="icon icon-lg icon-shape icon-shape-success shadow rounded-circle mb-5">
-              <i class="fa fa-mouse-pointer"></i>
-            </div>
-            <h3>Fácil de usar</h3>
-            <p>Colocar as suas ideias no Brainotes é bem simples. Basta arrastar e digitar.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <section class="section section-lg">
-    <div class="container">
-      <div class="row row-grid align-items-center">
-        <div class="col-md-6 order-md-2">
-          <img src="{% static "img/promo-1.png" %}" class="img-fluid">
-        </div>
-        <div class="col-md-6 order-md-1">
-          <div class="pr-md-5">
-            <div class="icon icon-lg icon-shape icon-shape-success shadow rounded-circle mb-5">
-              <i class="fa fa-pencil"></i>
-            </div>
-            <h3>Anote tudo o que aprender</h3>
-            <p>Seja lendo um livro, assistindo uma aula ou participando de uma reunião, use o Brainotes para fazer suas anotações e registrar tudo o que aprender.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section-lg">
-      <div class="container">
-        <div class="row row-grid align-items-center">
-          <div class="col-md-6 order-md-1">
-            <img src="{% static "img/demo.gif" %}" class="img-fluid">
-          </div>
-          <div class="col-md-6 order-md-2">
-            <div class="pr-md-5">
-              <div class="icon icon-lg icon-shape icon-shape-success shadow rounded-circle mb-5">
-                <i class="fa fa-share"></i>
-              </div>
-              <h3>Compartilhe com quem quiser</h3>
-              <p>Você pode deixar os seus mapas mentais guardados só pra você ou pode compartilhar com outras pessoas.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section section-lg">
-      <div class="container">
-        <div class="row row-grid align-items-center">
-          <div class="col-md-6 order-md-2">
-            <img src="{% static "img/promo-1.png" %}" class="img-fluid">
-          </div>
-          <div class="col-md-6 order-md-1">
-            <div class="pr-md-5">
-              <div class="icon icon-lg icon-shape icon-shape-success shadow rounded-circle mb-5">
-                <i class="fa fa-book"></i>
-              </div>
-              <h3>Aprenda com os demais</h3>
-              <p>Aproveite para aprender coisas novas com os mapas mentais publicados por outras pessoas.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-  <section class="section section-shaped my-0 overflow-hidden">
-    <div class="shape shape-style-3 bg-gradient-default shape-skew">
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-    <div class="container pt-lg pb-300">
-      <div class="row text-center justify-content-center">
-        <div class="col-lg-10">
-          <h2 class="display-3 text-white">Aprenda algo novo</h2>
-          <p class="lead text-white">Use os mapas mentais feitos por outras pessoas para aprender algo novo.<br>
-            Quer trabalhar a partir do que já foi feito? Tudo bem! Você pode editar os mapas mentais publicados e salvar na sua própria coleção.</p>
-        </div>
-      </div>
-      <div class="row row-grid mt-5">
-
-      </div>
-    </div>
-  </section>
-
+ 
   {% for listing in listings %}
   <section class="section section-lg no-bottom">
       <div class="container">
-        <div class="row row-grid justify-content-center">
-          <div class="col-lg-8 text-center">
+        <div class="row row-grid justify-content-left">
+          <div class="col-lg-8">
             <h2 class="display-4">{{ listing.title }}</h2>
           </div>
         </div>
@@ -158,7 +60,7 @@ Brainotes - Crie mapas mentais online
             <a href="{% url 'map' map.id %}" title="Landing Page">
               <img src="{% if map.imageurl %} {{ map.imageurl }} {% else %} {% static 'img/mindmap-default-icon.png' %} {% endif %}" class="card-img">
               <h5 class="title text-center pt-2">
-                <span class="d-block mb-1">{{ map.title }}</span>
+                <span class="d-block mb-1">{% if map.title %}{{ map.title }} {% else %} <i>Sem título</i>{% endif %}</span>
                 <small class="h6 text-muted">{% if map.description %}{{ map.description|truncatechars:100}} {% else %} <i>Sem descrição</i> {% endif %}</small>
               </h5>
             </a>
