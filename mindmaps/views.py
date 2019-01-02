@@ -4,8 +4,10 @@ from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib.auth import authenticate, login
 
-from .models import Map, Listing
+from .models import Map, Listing, MapView
 from .forms import UserCreationForm
+
+from datetime import datetime
 
 # Create your views here.
 def index(request):
@@ -78,7 +80,9 @@ def map(request, map_id):
         else:
             return redirect("login")
         return redirect("index")
-    
+
+    record_view(request, map_id)
+
     return render(request, 'maps/new/index.html', context)
 
 class signup(generic.CreateView):
@@ -157,6 +161,23 @@ def listing(request, listing_id):
         }
 
     return render(request, "maps/listing.html", context)
+
+def record_view(request, map_id):
+    try:
+        map = Map.objects.get(pk=map_id)
+    except Map.DoesNotExist:
+        raise Http404("No Map found to count views")
+
+    if not MapView.objects.filter(
+                    map=map,
+                    session=request.session.session_key):
+        view = MapView(map=map,
+                            ip=request.META['REMOTE_ADDR'],
+                            created=datetime.now(),
+                            session=request.session.session_key)
+        view.save()
+
+    return HttpResponse(u"%s" % MapView.objects.filter(map=map).count())
 
 def myprofile(request):
     context = {}

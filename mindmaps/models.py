@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.utils.translation import ugettext_lazy as _
+from datetime import datetime
 
 class UserManager(BaseUserManager):
     """Define a model manager for User model with no username field."""
@@ -80,6 +81,12 @@ class Listing(models.Model):
     language = models.CharField(max_length=8)
     maps = models.ManyToManyField(Map, blank=True, related_name="maps")
     # keywords
+
+class MapView(models.Model):
+    map = models.ForeignKey(Map, related_name='mapviews', on_delete=models.SET_NULL, null=True)
+    ip = models.CharField(max_length=40)
+    session = models.CharField(max_length=40)
+    created = models.DateTimeField(default=datetime.now())
 
 """
 Map
