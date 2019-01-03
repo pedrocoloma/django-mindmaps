@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.utils.translation import ugettext_lazy as _
+from django.utils import timezone
 from datetime import datetime
 
 class UserManager(BaseUserManager):
@@ -64,12 +65,12 @@ class Map(models.Model):
     ispublic = models.BooleanField(default=False)
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name="mymaps")
     # creation timestamp
-    public_id = models.CharField(max_length=16, null=True)
-    friendly_url = models.CharField(max_length=128, null=True)
-    language = models.CharField(max_length=8, null=True)
-    mapjson = models.TextField(default="", null=True)
-    description = models.TextField(default="", null=True)
-    imageurl = models.CharField(max_length=512, null=True)
+    public_id = models.CharField(max_length=16, null=True, blank=True)
+    friendly_url = models.CharField(max_length=128, null=True, blank=True)
+    language = models.CharField(max_length=8, null=True, blank=True)
+    mapjson = models.TextField(default="", null=True, blank=True)
+    description = models.TextField(default="", null=True, blank=True)
+    imageurl = models.CharField(max_length=512, null=True, blank=True)
     # keywords
     # views
     # number of shares
@@ -83,10 +84,10 @@ class Listing(models.Model):
     # keywords
 
 class MapView(models.Model):
-    map = models.ForeignKey(Map, related_name='mapviews', on_delete=models.SET_NULL, null=True)
+    map = models.ForeignKey(Map, related_name='mapviews', on_delete=models.SET_NULL, null=True, blank=True)
     ip = models.CharField(max_length=40)
-    session = models.CharField(max_length=40)
-    created = models.DateTimeField(default=datetime.now())
+    session = models.CharField(max_length=40, null=True, blank=True)
+    created = models.DateTimeField(default=timezone.now)
 
 """
 Map
