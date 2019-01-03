@@ -121,7 +121,7 @@ STATICFILES_DIRS = (
 )
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
-AUTH_USER_MODEL = 'mindmaps.CustomUser'
+AUTH_USER_MODEL = 'mindmaps.User'
 
 LOGIN_REDIRECT_URL = 'index'
 
